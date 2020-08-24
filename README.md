@@ -1,5 +1,9 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+
+<p>Try it: <br>
+<a href="https://slavkopar.github.io/rick-and-morty/" rel="nofollow">https://slavkopar.github.io/rick-and-morty/</a></p>
+
 ## Available Scripts
 
 In the project directory, you can run:
