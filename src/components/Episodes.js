@@ -61,7 +61,7 @@ export default function Episodes() {
 	const [page, setPage] = useState(1);
 	const [searchTerm, setSearchTerm] = useState("");
 
-	console.log ('zovem bre filter, page:', page, ' searchTerm:', searchTerm)
+	//console.log ('zovem bre filter, page:', page, ' searchTerm:', searchTerm)
 	const { loading, error, data, fetchMore } = useQuery(GET_EPISODES, { 
 		variables: { page: page, filter: searchTerm } 
 	});
@@ -108,7 +108,7 @@ export default function Episodes() {
 
 			<table>
 				<thead>
-					<tr sty>
+					<tr>
 						<th>Episode</th>
 						<th style={{ textAlign: 'center', width: '130px'}}>#Characters</th>
 					</tr>
