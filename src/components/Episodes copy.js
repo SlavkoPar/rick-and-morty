@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
-import produce from "immer";
 
 import Search from './Search'
-import EpisodeList from './EpisodeList'
+import EpisodeLine from './EpisodeLine'
 
 import { useQuery, gql } from '@apollo/client';
-import InfiniteScrollWrapper from "./InfiniteScrollWrapper"
 
 const GET_EPISODES = gql`
 	query episodes($page: Int, $filter: String) {
@@ -58,29 +56,49 @@ const Button = styled.button`
 `;
 
 
+let pg = 1;
 export default function Episodes() {
+	const [page, setPage] = useState(1);
 	const [searchTerm, setSearchTerm] = useState("");
 
 	//console.log ('zovem bre filter, page:', page, ' searchTerm:', searchTerm)
 	const { loading, error, data, fetchMore } = useQuery(GET_EPISODES, { 
-		variables: { page: 1, filter: searchTerm } 
+		variables: { page: page, filter: searchTerm } 
 	});
 	if (data)
 		console.log('data', data)
 	
-	// if (loading) return <p>Loading...</p>;
+	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;
 
+	const onFetchMore = () => {
+		pg++;
+		fetchMore({
+			variables: {
+				page: pg,
+				filter: searchTerm
+			},
+      	fetchPolicy: "cache-and-network",
+			updateQuery: (previousResult, { fetchMoreResult }) => {
+				if (!fetchMoreResult) 
+					return previousResult;
+				return {
+					episodes: {
+						results: [
+					  		//...previousResult.episodes.results,
+					  		...fetchMoreResult.episodes.results,
+						],
+						info: {
+							next: fetchMoreResult.episodes.info.next
+						}
+					}
+			 	}
+			}
+		})
+	}
 
-	// const results = (data && data.episodes.results) || [];
-	// const hasMore = data && data.episodes.info.next;
-
-	const { episodes } = data || {};
-
-	const results = episodes?.results;
-	const next = episodes?.info?.next;
-	const hasNextPage = !!next;
-	
+	const results = (data && data.episodes.results) || [];
+	const hasMore = data && data.episodes.info.next;
 	return (
 		<EpisodesCard>
 
@@ -94,37 +112,27 @@ export default function Episodes() {
 						<th>Episode</th>
 						<th style={{ textAlign: 'center', width: '130px'}}>#Characters</th>
 					</tr>
-				</thead>		
-				<InfiniteScrollWrapper
-					hasNextPage={hasNextPage}
-					loading={loading}
-					onLoadMore={() =>
-						fetchMore({
-							// This breaks "@apollo/client 3".
-							// It doesn't toggle "loading" even if the "notifyOnNetworkStatusChange" is set to "true".
-							// query: GET_EPISODES,
-							variables: { page: next, filter: searchTerm },
-							updateQuery: (prevResult, { fetchMoreResult }) => {
-								const newEpisodes = fetchMoreResult?.episodes;
-								const newData = produce(prevResult, (draft) => {
-									let { episodes } = draft;
-									if (
-										episodes?.results &&
-										episodes?.info &&
-										newEpisodes?.results
-									) {
-										episodes.results.push(...newEpisodes.results);
-										episodes.info = newEpisodes.info;
-									}
-								});
-								return newData;
-							},
-						})
+				</thead>
+				<tbody>
+					{
+						results.map(episode => <EpisodeLine key={episode.id} {...episode} />)
 					}
-				>
-					<EpisodeList episodes={results} loading={loading || hasNextPage} />
-				</InfiniteScrollWrapper>
+				</tbody>
 			</table>
+		
+			<NavBar>
+				{results && hasMore &&
+					<Button onClick={onFetchMore}> 
+						Show More Episodes
+					</Button>
+				}
+				{results && pg > 1 &&
+					<Button onClick={() => { pg=1; setPage(0); }}> 
+						Top
+					</Button>
+				}
+			</NavBar>
+
 		</EpisodesCard>
 	)
 
