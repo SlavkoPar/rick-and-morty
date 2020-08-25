@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom'
+import BackToTop from './components/BackToTop'
 
 import { 
 	ApolloProvider, 
@@ -36,14 +37,9 @@ function App() {
   return (
 	<Router>
 		<ApolloProvider client={client}>
+			<>
 			<div>
-				{/* <nav>
-					<ul>
-						<li>
-							<Link to="/">Home</Link>
-						</li>
-					</ul>				
-				</nav> */}
+				{/* <nav><ul><li><Link to="/">Home</Link></li></ul></nav> */}
 				<Switch>
 					<Route path="/episode/:id">
 						<Episode />
@@ -53,6 +49,8 @@ function App() {
 					</Route>
 				</Switch>
 			</div>
+			<BackToTop />
+			</>
 	 	</ApolloProvider>
 	 </Router>
   );
