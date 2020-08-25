@@ -14,23 +14,23 @@ function BaseList({ items = [], renderItem, loading, maxVisibleItemCount,  ...re
 
   return (
     <LoadingIndicator loading={isInitialFetch}>
-      <tbody {...rest}>
+      {/* <tbody {...rest}> */}
         {items?.map((item, i) =>
           item && (!maxVisibleItemCount || expand || i < maxVisibleItemCount)
             ? renderItem(item, i)
             : null,
         )}
         {maxVisibleItemCount && itemCount && itemCount > maxVisibleItemCount ? (
-          <tr button onClick={toggleExpand}>
-            <span>{`SHOW ${expand ? "LESS" : "MORE"}`}</span>
+          <tr onClick={toggleExpand}>
+            <td>{`SHOW ${expand ? "LESS" : "MORE"}`}</td>
           </tr>
         ) : null}
         {loading ? (
           <tr>
-            <LoadingIndicator loading />
+            <td><LoadingIndicator loading /></td>
           </tr>
         ) : null}
-      </tbody>
+      {/* </tbody> */}
     </LoadingIndicator>
   );
 }

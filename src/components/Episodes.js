@@ -40,22 +40,22 @@ const EpisodesCard = styled.div`
 `;
 
 
-const NavBar = styled.div`
-	display: flex;
-	justify-content: flex-end;
-	margin: 20px 15px;
-	width: 90%;
-	overflow: hidden;
-`;
+// const NavBar = styled.div`
+// 	display: flex;
+// 	justify-content: flex-end;
+// 	margin: 20px 15px;
+// 	width: 90%;
+// 	overflow: hidden;
+// `;
 
 
-const Button = styled.button`
-	font-size: 1em;
-	margin: 1em;
-	padding: 0.25em 1em;
-	border-width: 1px;
-	border-radius: 3px;
-`;
+// const Button = styled.button`
+// 	font-size: 1em;
+// 	margin: 1em;
+// 	padding: 0.25em 1em;
+// 	border-width: 1px;
+// 	border-radius: 3px;
+// `;
 
 
 export default function Episodes() {
