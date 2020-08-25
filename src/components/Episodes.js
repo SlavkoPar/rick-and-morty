@@ -65,15 +65,8 @@ export default function Episodes() {
 	const { loading, error, data, fetchMore } = useQuery(GET_EPISODES, { 
 		variables: { page: 1, filter: searchTerm } 
 	});
-	if (data)
-		console.log('data', data)
 	
-	// if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;
-
-
-	// const results = (data && data.episodes.results) || [];
-	// const hasMore = data && data.episodes.info.next;
 
 	const { episodes } = data || {};
 
@@ -108,11 +101,7 @@ export default function Episodes() {
 								const newEpisodes = fetchMoreResult?.episodes;
 								const newData = produce(prevResult, (draft) => {
 									let { episodes } = draft;
-									if (
-										episodes?.results &&
-										episodes?.info &&
-										newEpisodes?.results
-									) {
+									if (episodes?.results && episodes?.info && newEpisodes?.results) {
 										episodes.results.push(...newEpisodes.results);
 										episodes.info = newEpisodes.info;
 									}

@@ -12,7 +12,7 @@ export default function EpisodeLine({id, name, air_date, episode, characters}) {
 			<td>
 				<Link to={`/episode/${id}`}>{name}</Link>
 				<div>
-					{episode},  {air_date}
+					{id} {episode},  {air_date}
 				</div>
 			</td>
 			<td style={{textAlign: 'center'}}>
