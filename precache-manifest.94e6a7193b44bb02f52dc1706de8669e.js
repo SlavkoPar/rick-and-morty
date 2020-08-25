@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "4fd4b3cc07cc9c31f44b7b3c806eb3ed",
+    "revision": "7769a923edd85a3aef800ec43f80a563",
     "url": "/rick-and-morty/index.html"
   },
   {
-    "revision": "ed3dffd7eae2c4b6e873",
+    "revision": "ac7f13d31b3f1aaf5646",
     "url": "/rick-and-morty/static/css/main.fde3680b.chunk.css"
   },
   {
-    "revision": "7119a59c9d364f617f46",
-    "url": "/rick-and-morty/static/js/2.03fdc324.chunk.js"
+    "revision": "331172c4bcb50a9666ae",
+    "url": "/rick-and-morty/static/js/2.c4141978.chunk.js"
   },
   {
     "revision": "150ff86ada6d4117f6d430f6acba325e",
-    "url": "/rick-and-morty/static/js/2.03fdc324.chunk.js.LICENSE.txt"
+    "url": "/rick-and-morty/static/js/2.c4141978.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ed3dffd7eae2c4b6e873",
-    "url": "/rick-and-morty/static/js/main.fae5835b.chunk.js"
+    "revision": "ac7f13d31b3f1aaf5646",
+    "url": "/rick-and-morty/static/js/main.391b1dd9.chunk.js"
   },
   {
     "revision": "8ec831075791f93706ea",
