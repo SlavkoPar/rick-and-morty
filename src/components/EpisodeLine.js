@@ -18,11 +18,11 @@ export default function EpisodeLine({id, name, air_date, episode, characters}) {
 			<Col size={3} collapse="xs">
 				{air_date}
 			</Col>
-			<Col size={2} justifyContent="center">
+			<Col size={3} justifyContent="center">
 				<div ref={hoverRef} style={{position: 'relative'}}>
 					#{characters.length} 
 					{hoverProps.isHovered &&
-						<button className="show-more" title="Edit" onClick={() => {}}>
+						<button className="show-more" title="Show characters" onClick={() => {}}>
 							Show
 						</button>}
 				</div>

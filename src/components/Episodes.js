@@ -93,7 +93,7 @@ export default function Episodes() {
 					<Col size={3} collapse="xs">
 						AIR DATE
 					</Col>
-					<Col size={2} justifyContent="center">
+					<Col size={3} justifyContent="center">
 						#Characters
 					</Col>					
 				</HeaderRow>
@@ -108,7 +108,7 @@ export default function Episodes() {
 						// query: GET_EPISODES,
 						variables: { page: next, filter: searchTerm },
 						updateQuery: (prevResult, { fetchMoreResult }) => {
-							console.log(prevResult)
+							console.log("prevResult:", prevResult)
 							const newEpisodes = fetchMoreResult?.episodes;
 							const newData = produce(prevResult, (draft) => {
 								let { episodes } = draft;

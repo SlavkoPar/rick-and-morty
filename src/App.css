@@ -39,7 +39,7 @@
 
 button.show-more {
 	position: absolute;
-	right: 5px;
+	left: 30px;
 	top: 3px; 
 	background-color: transparent;
 	margin: 0;
