@@ -48,24 +48,6 @@ button.show-more {
 	box-shadow: none;
  }
 
- table {
-	width: 100%;
- }
-
- th {
-	background-color: lightslategray;
-	color: white;
- }
-
- th, td {
-	border-bottom: 1px solid #ddd;
-	padding: 5px 15px;
-	text-align: left;
- }
-
- tr:hover {background-color: #f5f5f5;}
- tr:nth-child(even) {background-color: #f2f2f2;}
-
  a {
 	text-decoration: none;
  }

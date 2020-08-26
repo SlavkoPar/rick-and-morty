@@ -19,6 +19,8 @@ export const Row = styled.div`
 	border-bottom: 1px solid silver;
 	background:  ${(props) => props.background ? props.background : 'transparent' };
 	padding: 5px 10px;
+	:hover { background-color: #f5f5f5; }
+	:nth-child(even) { background-color: #f2f2f2; }
 `
 
 const media = {
