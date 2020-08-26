@@ -7,6 +7,7 @@ import EpisodeList from './EpisodeList'
 
 import { useQuery, gql } from '@apollo/client';
 import InfiniteScrollWrapper from "./InfiniteScrollWrapper"
+import { Grid, HeaderRow, Col } from './GridStyling'
 
 const GET_EPISODES = gql`
 	query episodes($page: Int, $filter: String) {
@@ -81,39 +82,48 @@ export default function Episodes() {
 				<Search searchTerm={searchTerm} onSearch={(val) => setSearchTerm(val)}></Search>
 			</div>
 
-			<table>
-				<thead>
-					<tr>
-						<th>Episode</th>
-						<th style={{ textAlign: 'center', width: '130px'}}>#Characters</th>
-					</tr>
-				</thead>		
-				<InfiniteScrollWrapper
-					hasNextPage={hasNextPage}
-					loading={loading}
-					onLoadMore={() =>
-						fetchMore({
-							// This breaks "@apollo/client 3".
-							// It doesn't toggle "loading" even if the "notifyOnNetworkStatusChange" is set to "true".
-							// query: GET_EPISODES,
-							variables: { page: next, filter: searchTerm },
-							updateQuery: (prevResult, { fetchMoreResult }) => {
-								const newEpisodes = fetchMoreResult?.episodes;
-								const newData = produce(prevResult, (draft) => {
-									let { episodes } = draft;
-									if (episodes?.results && episodes?.info && newEpisodes?.results) {
-										episodes.results.push(...newEpisodes.results);
-										episodes.info = newEpisodes.info;
-									}
-								});
-								return newData;
-							},
-						})
-					}
-				>
-					<EpisodeList episodes={results} loading={loading || hasNextPage} />
-				</InfiniteScrollWrapper>
-			</table>
+			<Grid>
+				<HeaderRow background="gray">
+					<Col size={5}>
+						EPISODE
+					</Col>
+					<Col size={2} collapse="xs">
+						CODE
+					</Col>
+					<Col size={3} collapse="xs">
+						AIR DATE
+					</Col>
+					<Col size={2} justifyContent="center">
+						#Characters
+					</Col>					
+				</HeaderRow>
+			</Grid>
+			<InfiniteScrollWrapper
+				hasNextPage={hasNextPage}
+				loading={loading}
+				onLoadMore={() =>
+					fetchMore({
+						// This breaks "@apollo/client 3".
+						// It doesn't toggle "loading" even if the "notifyOnNetworkStatusChange" is set to "true".
+						// query: GET_EPISODES,
+						variables: { page: next, filter: searchTerm },
+						updateQuery: (prevResult, { fetchMoreResult }) => {
+							console.log(prevResult)
+							const newEpisodes = fetchMoreResult?.episodes;
+							const newData = produce(prevResult, (draft) => {
+								let { episodes } = draft;
+								if (episodes?.results && episodes?.info && newEpisodes?.results) {
+									episodes.results.push(...newEpisodes.results);
+									episodes.info = newEpisodes.info;
+								}
+							});
+							return newData;
+						},
+					})
+				}
+			>
+				<EpisodeList episodes={results} loading={loading || hasNextPage} />
+			</InfiniteScrollWrapper>
 		</EpisodesCard>
 	)
 

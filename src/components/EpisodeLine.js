@@ -1,21 +1,24 @@
 import React from 'react';
 import { useHover } from './useHover'
 import { Link  } from 'react-router-dom'
-
+import { Row, Col } from './GridStyling'
 
 export default function EpisodeLine({id, name, air_date, episode, characters}) {
 
 	const [hoverRef, hoverProps] = useHover();
 
 	return (
-		<tr>
-			<td>
-				<Link to={`/episode/${id}`}>{name}</Link>
-				<div>
-					{id} {episode},  {air_date}
-				</div>
-			</td>
-			<td style={{textAlign: 'center'}}>
+		<Row>
+			<Col size={5}>
+				<Link to={`/episode/${id}`}>{id} {name}</Link>
+			</Col>
+			<Col size={2} collapse="xs">
+				{episode}
+			</Col>
+			<Col size={3} collapse="xs">
+				{air_date}
+			</Col>
+			<Col size={2} justifyContent="center">
 				<div ref={hoverRef} style={{position: 'relative'}}>
 					#{characters.length} 
 					{hoverProps.isHovered &&
@@ -23,7 +26,7 @@ export default function EpisodeLine({id, name, air_date, episode, characters}) {
 							Show
 						</button>}
 				</div>
-			</td>
-		</tr>		
+			</Col>
+		</Row>		
 	)
 }

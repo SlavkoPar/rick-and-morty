@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import LoadingIndicator from "./LoadingIndicator";
+import { Row, Col } from './GridStyling'
 
 
 function BaseList({ items = [], renderItem, loading, maxVisibleItemCount,  ...rest }) {
@@ -21,14 +22,14 @@ function BaseList({ items = [], renderItem, loading, maxVisibleItemCount,  ...re
             : null,
         )}
         {maxVisibleItemCount && itemCount && itemCount > maxVisibleItemCount ? (
-          <tr onClick={toggleExpand}>
-            <td>{`SHOW ${expand ? "LESS" : "MORE"}`}</td>
-          </tr>
+          <Row onClick={toggleExpand}>
+            <Col>{`SHOW ${expand ? "LESS" : "MORE"}`}</Col>
+          </Row>
         ) : null}
         {loading ? (
-          <tr>
-            <td><LoadingIndicator loading /></td>
-          </tr>
+          <Row>
+            <Col><LoadingIndicator loading /></Col>
+          </Row>
         ) : null}
       {/* </tbody> */}
     </LoadingIndicator>
