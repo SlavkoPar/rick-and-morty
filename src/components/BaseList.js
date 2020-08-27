@@ -1,37 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import LoadingIndicator from "./LoadingIndicator";
 import { Row, Col } from './GridStyling'
 
 
-function BaseList({ items = [], renderItem, loading, maxVisibleItemCount,  ...rest }) {
-  const [expand, setExpand] = useState(!maxVisibleItemCount);
-
-  function toggleExpand() {
-    setExpand(!expand);
-  }
+function BaseList({ items = [], renderItem, loading, hasNextPage,  ...rest }) {
 
   const itemCount = items.length;
   const isInitialFetch = Boolean(loading && !itemCount);
 
   return (
     <LoadingIndicator loading={isInitialFetch}>
-      {/* <tbody {...rest}> */}
-        {items?.map((item, i) =>
-          item && (!maxVisibleItemCount || expand || i < maxVisibleItemCount)
-            ? renderItem(item, i)
-            : null,
-        )}
-        {maxVisibleItemCount && itemCount && itemCount > maxVisibleItemCount ? (
-          <Row onClick={toggleExpand}>
-            <Col>{`SHOW ${expand ? "LESS" : "MORE"}`}</Col>
-          </Row>
-        ) : null}
-        {loading ? (
-          <Row>
-            <Col><LoadingIndicator loading /></Col>
-          </Row>
-        ) : null}
-      {/* </tbody> */}
+		{items?.map((item, i) =>
+			item ? renderItem(item, i)	: null,
+		)}
+		
+		{loading ? (
+			<Row>
+			<Col><LoadingIndicator loading={loading} /></Col>
+			</Row>
+		) : null}
     </LoadingIndicator>
   );
 }

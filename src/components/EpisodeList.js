@@ -11,12 +11,12 @@ function renderItem(episode) {
   return null;
 }
 
-function EpisodeList({ episodes, loading, maxVisibleItemCount }) {
+function EpisodeList({ episodes, loading, hasNextPage }) {
   return (
     <BaseList
       items={episodes}
       loading={loading}
-      maxVisibleItemCount={maxVisibleItemCount}
+      hasNextPage={hasNextPage}
       renderItem={renderItem}
     >
       );

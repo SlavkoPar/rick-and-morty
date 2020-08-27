@@ -49,7 +49,7 @@ function App() {
 					</Route>
 				</Switch>
 			</div>
-			<BackToTop />
+			{/* <BackToTop /> */}
 			</>
 	 	</ApolloProvider>
 	 </Router>

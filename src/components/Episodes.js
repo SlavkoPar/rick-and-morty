@@ -6,7 +6,7 @@ import Search from './Search'
 import EpisodeList from './EpisodeList'
 
 import { useQuery, gql } from '@apollo/client';
-import InfiniteScrollWrapper from "./InfiniteScrollWrapper"
+import useInfiniteScroll from "react-infinite-scroll-hook";
 import { Grid, HeaderRow, Col } from './GridStyling'
 
 const GET_EPISODES = gql`
@@ -29,7 +29,7 @@ const GET_EPISODES = gql`
 `;
 
 const EpisodesCard = styled.div`
-	position: 'relative'
+	position: 'relative';
 	background-color: gainsboro;
 	border-radius: 10px;
 	box-shadow: 3px 3px 25px -5px rgba(0,0,0,0.47);
@@ -40,6 +40,13 @@ const EpisodesCard = styled.div`
 	overflow: hidden;
 `;
 
+const GridBody = styled.div`
+	border: '1px solid silver';
+	border-top-width: 0;
+	overflow-y: auto;
+	height: 500px;
+`
+// calc(100vh - 170px);
 
 // const NavBar = styled.div`
 // 	display: flex;
@@ -70,11 +77,44 @@ export default function Episodes() {
 	if (error) return <p>Error :(</p>;
 
 	const { episodes } = data || {};
+	console.log("Episodes:", episodes)
 
 	const results = episodes?.results;
 	const next = episodes?.info?.next;
 	const hasNextPage = !!next;
-	
+	console.log("hasNextPage: ", hasNextPage)
+
+	function handleLoadMore() {
+		console.log('handleLoadMore')
+		fetchMore({
+			// This breaks "@apollo/client 3".
+			// It doesn't toggle "loading" even if the "notifyOnNetworkStatusChange" is set to "true".
+			// query: GET_EPISODES,
+			variables: { page: next, filter: searchTerm },
+			updateQuery: (prevResult, { fetchMoreResult }) => {
+				const newEpisodes = fetchMoreResult?.episodes;
+				console.log("prevResult:", prevResult)
+				console.log("newEpisodes:", newEpisodes )
+				const newData = produce(prevResult, (draft) => {
+					let { episodes } = draft;
+					if (episodes?.results && episodes?.info && newEpisodes?.results) {
+						episodes.results.push(...newEpisodes.results);
+						episodes.info = newEpisodes.info;
+					}
+				});
+				return newData;
+			},
+		})
+	}
+
+	// eslint-disable-next-line react-hooks/rules-of-hooks
+	const infiniteContainerRef = useInfiniteScroll({
+		loading,
+		hasNextPage,
+		onLoadMore: handleLoadMore,
+		scrollContainer: "parent"
+	 });
+
 	return (
 		<EpisodesCard>
 
@@ -98,32 +138,13 @@ export default function Episodes() {
 					</Col>					
 				</HeaderRow>
 			</Grid>
-			<InfiniteScrollWrapper
-				hasNextPage={hasNextPage}
-				loading={loading}
-				onLoadMore={() =>
-					fetchMore({
-						// This breaks "@apollo/client 3".
-						// It doesn't toggle "loading" even if the "notifyOnNetworkStatusChange" is set to "true".
-						// query: GET_EPISODES,
-						variables: { page: next, filter: searchTerm },
-						updateQuery: (prevResult, { fetchMoreResult }) => {
-							console.log("prevResult:", prevResult)
-							const newEpisodes = fetchMoreResult?.episodes;
-							const newData = produce(prevResult, (draft) => {
-								let { episodes } = draft;
-								if (episodes?.results && episodes?.info && newEpisodes?.results) {
-									episodes.results.push(...newEpisodes.results);
-									episodes.info = newEpisodes.info;
-								}
-							});
-							return newData;
-						},
-					})
-				}
-			>
-				<EpisodeList episodes={results} loading={loading || hasNextPage} />
-			</InfiniteScrollWrapper>
+			
+			<GridBody>
+				<Grid ref={infiniteContainerRef}>
+					<EpisodeList episodes={results} loading={loading} hasNextPage={hasNextPage} />
+				</Grid>
+			</GridBody>
+
 		</EpisodesCard>
 	)
 

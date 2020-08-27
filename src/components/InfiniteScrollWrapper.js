@@ -3,15 +3,16 @@ import useInfiniteScroll from "react-infinite-scroll-hook";
 import { Grid } from './GridStyling'
 
 function InfiniteScrollWrapper({
-  hasNextPage,
   loading,
+  hasNextPage,
   onLoadMore,
   children,
 }) {
   const infiniteContainerRef = useInfiniteScroll({
-    hasNextPage,
     loading,
-    onLoadMore,
+    hasNextPage,
+	 onLoadMore,
+	 scrollContainer: "parent"
   });
 
   return <Grid ref={infiniteContainerRef}>{children}</Grid>;
