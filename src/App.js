@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom'
-import BackToTop from './components/BackToTop'
+// import BackToTop from './components/BackToTop'
 
 import { 
 	ApolloProvider, 
@@ -9,7 +9,7 @@ import {
 	InMemoryCache
 } from '@apollo/client';
 
-import { relayStylePagination } from "@apollo/client/utilities";
+// import { relayStylePagination } from "@apollo/client/utilities";
 
 import Episodes from './components/Episodes'
 import Episode from './components/Episode'
@@ -17,16 +17,16 @@ import Episode from './components/Episode'
 const client = new ApolloClient({
 	uri: "https://rickandmortyapi.com/graphql",
 	cache: new InMemoryCache({
-	  typePolicies: {
-		 Query: {
-			fields: {
-			  // Reusable helper function to generate a field
-			  // policy for the Query.search field, keyed by
-			  // search query:
-			  search: relayStylePagination(["query"]),
-			},
-		 },
-	  },
+	//   typePolicies: {
+	// 	 Query: {
+	// 		fields: {
+	// 		  // Reusable helper function to generate a field
+	// 		  // policy for the Query.search field, keyed by
+	// 		  // search query:
+	// 		  search: relayStylePagination(["query"]),
+	// 		},
+	// 	 },
+	//   },
 	}),
  });
 

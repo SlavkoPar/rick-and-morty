@@ -77,12 +77,11 @@ export default function Episodes() {
 	if (error) return <p>Error :(</p>;
 
 	const { episodes } = data || {};
-	console.log("Episodes:", episodes)
 
 	const results = episodes?.results;
 	const next = episodes?.info?.next;
 	const hasNextPage = !!next;
-	console.log("hasNextPage: ", hasNextPage)
+	console.log("Episodes:", episodes, " loading: ", loading, "hasNextPage: ", hasNextPage)
 
 	function handleLoadMore() {
 		console.log('handleLoadMore')
@@ -93,8 +92,7 @@ export default function Episodes() {
 			variables: { page: next, filter: searchTerm },
 			updateQuery: (prevResult, { fetchMoreResult }) => {
 				const newEpisodes = fetchMoreResult?.episodes;
-				console.log("prevResult:", prevResult)
-				console.log("newEpisodes:", newEpisodes )
+				console.log("prevResult:", prevResult, " newEpisodes:", newEpisodes )
 				const newData = produce(prevResult, (draft) => {
 					let { episodes } = draft;
 					if (episodes?.results && episodes?.info && newEpisodes?.results) {
@@ -144,6 +142,7 @@ export default function Episodes() {
 					<EpisodeList episodes={results} loading={loading} hasNextPage={hasNextPage} />
 				</Grid>
 			</GridBody>
+			
 
 		</EpisodesCard>
 	)

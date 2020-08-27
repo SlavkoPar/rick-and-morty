@@ -25,7 +25,7 @@ export const Row = styled.div`
 
 const media = {
 	xs: (styles) => `
-		@media only screen and (max-width: 480px) {
+		@media only screen and (max-width: 580px) {
 			${styles}
 		}
 	`

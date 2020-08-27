@@ -16,7 +16,9 @@ function BaseList({ items = [], renderItem, loading, hasNextPage,  ...rest }) {
 		
 		{loading ? (
 			<Row>
-			<Col><LoadingIndicator loading={loading} /></Col>
+				<Col>
+					<LoadingIndicator loading={loading} />
+				</Col>
 			</Row>
 		) : null}
     </LoadingIndicator>
