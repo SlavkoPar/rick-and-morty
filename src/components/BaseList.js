@@ -5,11 +5,12 @@ import { Row, Col } from './GridStyling'
 
 function BaseList({ items = [], renderItem, loading, hasNextPage,  ...rest }) {
 
-  const itemCount = items.length;
-  const isInitialFetch = Boolean(loading && !itemCount);
+  // const itemCount = items.length;
+  // const isInitialFetch = Boolean(loading && !itemCount);
 
   return (
-    <LoadingIndicator loading={isInitialFetch}>
+	//  <LoadingIndicator loading={isInitialFetch}>
+	<>
 		{items?.map((item, i) =>
 			item ? renderItem(item, i)	: null,
 		)}
@@ -21,7 +22,8 @@ function BaseList({ items = [], renderItem, loading, hasNextPage,  ...rest }) {
 				</Col>
 			</Row>
 		) : null}
-    </LoadingIndicator>
+     {/* </LoadingIndicator> */}
+	</>
   );
 }
 

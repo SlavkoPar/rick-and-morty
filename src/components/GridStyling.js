@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Grid = styled.div`
+export const GridHeader = styled.div`
 `
 
 export const HeaderRow = styled.div`
@@ -13,6 +13,8 @@ export const HeaderRow = styled.div`
 	height: 30px;
 `
 
+export const GridBody = styled.div`
+`
 
 export const Row = styled.div`
 	display: flex;
