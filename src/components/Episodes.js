@@ -4,8 +4,9 @@ import styled from "styled-components";
 import Search from './Search'
 import EpisodeList from './EpisodeList'
 
-const EpisodesCard = styled.div`
 	// position: 'relative';
+
+const EpisodesCard = styled.div`
 	background-color: gainsboro;
 	border-radius: 10px;
 	box-shadow: 3px 3px 25px -5px rgba(0,0,0,0.47);
@@ -27,7 +28,6 @@ export default function Episodes() {
 			</div>
 			
 			<EpisodeList searchTerm={searchTerm} />	
-			{/* <InfiniteList scrollContainer="parent" /> */}
 
 		</EpisodesCard>
 	)
