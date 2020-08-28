@@ -7,9 +7,9 @@ function BaseList({ items = [], renderItem, loading, hasNextPage,  ...rest }) {
 
   // const itemCount = items.length;
   // const isInitialFetch = Boolean(loading && !itemCount);
+  //  <LoadingIndicator loading={isInitialFetch}>
 
   return (
-	//  <LoadingIndicator loading={isInitialFetch}>
 	<>
 		{items?.map((item, i) =>
 			item ? renderItem(item, i)	: null,
@@ -22,7 +22,6 @@ function BaseList({ items = [], renderItem, loading, hasNextPage,  ...rest }) {
 				</Col>
 			</Row>
 		) : null}
-     {/* </LoadingIndicator> */}
 	</>
   );
 }
