@@ -49,7 +49,7 @@ function EpisodeList({ searchTerm }) {
 
 	if (error) return <p>Error :(</p>;
 
-	console.log("Episodes:", episodes, " loading: ", loading, "hasNextPage: ", hasNextPage)
+	// console.log("Episodes:", episodes, " loading: ", loading, "hasNextPage: ", hasNextPage)
 
 	function handleLoadMore() {
 		fetchMore({
