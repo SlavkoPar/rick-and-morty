@@ -38,8 +38,9 @@ const GET_EPISODES = gql`
 
 function EpisodeList({ searchTerm }) {
 
+	//  page: 1, 
 	const { loading, error, data, fetchMore } = useQuery(GET_EPISODES, { 
-		variables: { filter: searchTerm } //  page: 1, 
+		variables: { filter: searchTerm } 
 	});
 
 	const { episodes } = data || {};
