@@ -39,7 +39,7 @@ const GET_EPISODES = gql`
 function EpisodeList({ searchTerm }) {
 
 	const { loading, error, data, fetchMore } = useQuery(GET_EPISODES, { 
-		variables: { page: 1, filter: searchTerm } 
+		variables: { filter: searchTerm } //  page: 1, 
 	});
 
 	const { episodes } = data || {};
@@ -49,7 +49,7 @@ function EpisodeList({ searchTerm }) {
 
 	if (error) return <p>Error :(</p>;
 
-	// console.log("Episodes:", episodes, " loading: ", loading, "hasNextPage: ", hasNextPage)
+	console.log("Episodes:", episodes, " loading: ", loading, "hasNextPage: ", hasNextPage)
 
 	function handleLoadMore() {
 		fetchMore({
