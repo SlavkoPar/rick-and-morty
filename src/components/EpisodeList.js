@@ -13,7 +13,7 @@ const GridParent = styled.div`
 	border: '1px solid silver';
 	border-top-width: 0;
 	overflow-y: auto;
-	height: 450px;
+	height: 470px;
 `
 // calc(100vh - 170px);
 
@@ -48,8 +48,6 @@ function EpisodeList({ searchTerm }) {
 	const next = episodes?.info?.next;
 	const hasNextPage = !!next;
 
-	if (error) return <p>Error :(</p>;
-
 	console.log("Episodes:", episodes, " loading: ", loading, "hasNextPage: ", hasNextPage)
 
 	function handleLoadMore() {
@@ -73,7 +71,6 @@ function EpisodeList({ searchTerm }) {
 		})
 	}
 
-	// eslint-disable-next-line react-hooks/rules-of-hooks
 	const infiniteRef = useInfiniteScroll({
 		loading,
 		hasNextPage,
@@ -99,8 +96,9 @@ function EpisodeList({ searchTerm }) {
 				</Col>					
 			</HeaderRow>
 		</GridHeader>
-			
-		<GridParent>
+		
+		{ error &&  <p>Error :(</p> }
+		{ !error && <GridParent>
 			<GridBody ref={infiniteRef}>
 				<BaseList
 					items={results}
@@ -111,7 +109,7 @@ function EpisodeList({ searchTerm }) {
 					);
 				</BaseList>
 			</GridBody>
-		</GridParent>
+		</GridParent>}
 		</>
 	);
 }
